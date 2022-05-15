@@ -85,3 +85,38 @@ public class TDes {
       Cipher cipher = Cipher.getInstance("desede/ CBC/PKCS5Padding");
       IvParameterSpec ips = new IvParameterSpec(keyiv);
       
+cipher.init(Cipher.ENCRYPT_MODE, deskey, ips);
+      byte[] bout = cipher.doFinal(data);
+      return bout;
+
+    } catch (Exception e) {
+      System.out.println("methods qualified name" + e);
+    }
+    return null;
+
+  }
+
+  private static byte[] des3DecodeCBC(byte[] key, byte[] keyiv, byte[] data) {
+    try {
+      Key deskey = null;
+      DESedeKeySpec spec = new DESedeKeySpec(key);
+      SecretKeyFactory keyfactory = SecretKeyFactory.getInstance("desede");
+      deskey = keyfactory.generateSecret(spec);
+
+      Cipher cipher = Cipher.getInstance("desede/ CBC/NoPadding");// PKCS5Padding NoPadding
+      IvParameterSpec ips = new IvParameterSpec(keyiv);
+      cipher.init(Cipher.DECRYPT_MODE, deskey, ips);
+
+      byte[] bout = cipher.doFinal(data);
+
+      return bout;
+
+    } catch (Exception e) {
+      System.out.println("methods qualified name" + e);
+    }
+
+    return null;
+
+  }
+
+}
