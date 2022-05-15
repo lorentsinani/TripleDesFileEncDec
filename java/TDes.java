@@ -75,3 +75,13 @@ public class TDes {
     }
     return "u mistaken in try block";
   }
+  private static byte[] des3EncodeCBC(byte[] key, byte[] keyiv, byte[] data) {
+    try {
+      Key deskey = null;
+      DESedeKeySpec spec = new DESedeKeySpec(key);
+      SecretKeyFactory keyfactory = SecretKeyFactory.getInstance("desede");
+      deskey = keyfactory.generateSecret(spec);
+
+      Cipher cipher = Cipher.getInstance("desede/ CBC/PKCS5Padding");
+      IvParameterSpec ips = new IvParameterSpec(keyiv);
+      
